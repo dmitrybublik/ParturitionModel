@@ -26,7 +26,7 @@
                     return 0;
                 }
 
-                return (double) BornCount/totalCount;
+                return (double) DeathCount/totalCount;
             }
         }
     }
