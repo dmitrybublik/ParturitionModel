@@ -16,8 +16,9 @@
         
         <Button Grid.Row="0" Content="Run" Click="ButtonBase_OnClick" />
 
-        <DataGrid Grid.Row="1"
-                  AutoGenerateColumns="False"
+        <DataGrid x:Name="DataGrid"
+                  Grid.Row="1"
+                  AutoGenerateColumns="False"                  
                   ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type app:MainWindow}}, Path=Items, Mode=OneTime}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Year"
