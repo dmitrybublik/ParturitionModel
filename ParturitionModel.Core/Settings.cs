@@ -63,14 +63,18 @@
             get { return 0.01; }
         }
 
+        private static readonly int[] _birthYears = {17, 21, 25, 29, 33};
+
         public int[] BirthYears
         {
-            get { return new[] {17, 21, 25, 29, 33}; }
+            get { return _birthYears; }
         }
+
+        private static readonly double[] _birthDeathFactor = {1.0, 0.7, 0.5, 0.7, 1.0};
 
         public double[] BirthDeathFactor
         {
-            get { return new[] {1.0, 0.7, 0.5, 0.7, 1.0}; }
+            get { return _birthDeathFactor; }
         }
 
         public int NubilityManAge
