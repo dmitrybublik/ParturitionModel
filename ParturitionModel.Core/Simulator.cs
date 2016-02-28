@@ -53,7 +53,7 @@ namespace ParturitionModel.Core
 
                 for (int i = 0; i < _settings.PopulationSize; ++i)
                 {
-                    var person = CreateNewPerson(ct);
+                    var person = CreateNewPerson();
                     _persons.Add(person);
 
                     if (i%1000 == 0)
@@ -64,7 +64,7 @@ namespace ParturitionModel.Core
             }, ct);
         }
 
-        private Person CreateNewPerson(CancellationToken ct = default(CancellationToken))
+        private Person CreateNewPerson()
         {
             var sexFactor = _rnd.NextDouble();
             var deathFactor = _rnd.NextDouble() * _settings.DeathProbability;
