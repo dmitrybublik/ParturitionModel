@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using ParturitionModel.Core;
@@ -50,8 +51,7 @@ namespace ParturitionModel.App
             {
                 Year = e.CurrentYear,
                 Population = ((Simulator) sender).CurrentPopuation,
-                ChildBorn = e.ChildBorn,
-                ChildDeath = e.ChildDeath
+                BornInfos = e.BornInfos.Values.OrderBy(x => x.Order)
             };
 
             await Dispatcher.InvokeAsync(() =>

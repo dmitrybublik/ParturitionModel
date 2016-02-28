@@ -1,4 +1,9 @@
-﻿namespace ParturitionModel.App
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using ParturitionModel.Core;
+
+namespace ParturitionModel.App
 {
     public sealed class DataViewModel
     {
@@ -6,21 +11,16 @@
 
         public int Population { get; set; }
 
-        public int ChildDeath { get; set; }
-
-        public int ChildBorn { get; set; }
-
-        public double ChildDeathPercents
+        public int ChildDeathTotal
         {
-            get
-            {
-                if (ChildBorn == 0)
-                {
-                    return 0.0;
-                }
-
-                return (double) ChildDeath/ChildBorn;
-            }
+            get { return BornInfos.Sum(x => x.DeathCount); }
         }
+
+        public int ChildBornTotal
+        {
+            get { return BornInfos.Sum(x => x.BornCount); }
+        }
+
+        public IEnumerable<BornInfo> BornInfos  { get; set; }
     }
 }

@@ -215,15 +215,25 @@ namespace ParturitionModel.Core
             var father = SearchNubilityMan();
 
             //get child
-            ++args.ChildBorn;
+            BornInfo bornInfo;
+            if (!args.BornInfos.TryGetValue(pregoInfo.Order, out bornInfo))
+            {
+                bornInfo = new BornInfo
+                {
+                    Order = pregoInfo.Order,
+                    MotherAge = person.Age
+                };
+                args.BornInfos.Add(bornInfo.Order, bornInfo);
+            }
             child = GenerateChild(father, person, pregoInfo.Factor);
 
             if (child == null)
             {
-                ++args.ChildDeath;
+                ++bornInfo.DeathCount;
                 return false;
             }
 
+            ++bornInfo.BornCount;
             return true;
         }
 

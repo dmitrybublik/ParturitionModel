@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:app="clr-namespace:ParturitionModel.App"
+        xmlns:core="clr-namespace:ParturitionModel.Core;assembly=ParturitionModel.Core"
         mc:Ignorable="d"
         Title="MainWindow" 
         Height="350"
@@ -18,7 +19,7 @@
 
         <DataGrid x:Name="DataGrid"
                   Grid.Row="1"
-                  AutoGenerateColumns="False"                  
+                  AutoGenerateColumns="False"       
                   ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type app:MainWindow}}, Path=Items, Mode=OneTime}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Year"
@@ -26,11 +27,59 @@
                 <DataGridTextColumn Header="Population"
                                     Binding="{Binding Path=Population, Mode=OneTime}" />
                 <DataGridTextColumn Header="Child Born (total)"
-                                    Binding="{Binding Path=ChildBorn, Mode=OneTime}" />
-                <DataGridTextColumn Header="Child Death"
-                                    Binding="{Binding Path=ChildDeath, Mode=OneTime}" />
-                <DataGridTextColumn Header="Child Death, %"
-                                    Binding="{Binding Path=ChildDeathPercents, Mode=OneTime, StringFormat=P2}" />
+                                    Binding="{Binding Path=ChildBornTotal, Mode=OneTime}" />
+                <DataGridTextColumn Header="Child Death (total)"
+                                    Binding="{Binding Path=ChildDeathTotal, Mode=OneTime}" />
+                <DataGridTemplateColumn Header="Child Death, %"                                        
+                                        Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type app:DataViewModel}">
+                            <ItemsControl ItemsSource="{Binding Path=BornInfos, Mode=OneTime}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type core:BornInfo}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="5" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="5" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            
+                                            <TextBlock Grid.Column="0">
+                                                <TextBlock.Inlines>
+                                                    <Run Text="#" />
+                                                    <Run Text="{Binding Path=Order, Mode=OneTime}" />
+                                                    <Run Text=";" />
+                                                </TextBlock.Inlines>
+                                            </TextBlock>
+
+                                            <TextBlock Grid.Column="2">
+                                                <TextBlock.Inlines>
+                                                    <Run Text="Age: " />
+                                                    <Run Text="{Binding Path=MotherAge, Mode=OneTime}" />
+                                                    <Run Text=";" />
+                                                </TextBlock.Inlines>
+                                            </TextBlock>
+
+                                            <TextBlock Grid.Column="4">
+                                                <TextBlock.Inlines>
+                                                    <Run Text="" />
+                                                    <Run Text="{Binding Path=Factor, Mode=OneTime, StringFormat=P2}" />
+                                                </TextBlock.Inlines>
+                                            </TextBlock>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
