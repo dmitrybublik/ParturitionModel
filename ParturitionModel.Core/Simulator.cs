@@ -42,6 +42,11 @@ namespace ParturitionModel.Core
             }
         }
 
+        public int CurrentPopuation
+        {
+            get { return _persons.Count; }
+        }
+
         private Task InitAsync(CancellationToken ct = default(CancellationToken))
         {
             return Task.Run(() =>
@@ -126,6 +131,7 @@ namespace ParturitionModel.Core
                         var nubilityMan = nubilityMen[nubilityManIndex];
                         var child = await GenerateChild(nubilityMan, woman, _settings.BirthDeathFactor[pregoIndex], ct);
 
+                        ++args.ChildBorn;
                         if (child == null)
                         {
                             _persons.Remove(woman);

@@ -11,5 +11,7 @@ namespace ParturitionModel.Core
         public int ExtraDeath { get; set; }
 
         public int ChildDeath { get; set; }
+
+        public int ChildBorn { get; set; }
     }
 }

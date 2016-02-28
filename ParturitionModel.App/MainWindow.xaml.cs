@@ -11,8 +11,8 @@ namespace ParturitionModel.App
     /// </summary>
     public partial class MainWindow
     {
-        private readonly ObservableCollection<SimulationEventArgs> _items =
-            new ObservableCollection<SimulationEventArgs>();
+        private readonly ObservableCollection<DataViewModel> _items =
+            new ObservableCollection<DataViewModel>();
 
         public MainWindow()
         {
@@ -38,7 +38,7 @@ namespace ParturitionModel.App
             }
         }
 
-        public IEnumerable<SimulationEventArgs> Items
+        public IEnumerable<DataViewModel> Items
 
         {
             get { return _items; }
@@ -46,11 +46,43 @@ namespace ParturitionModel.App
 
         private async void Simulation_SimulationEvent(object sender, SimulationEventArgs e)
         {
+            var data = new DataViewModel
+            {
+                Year = e.CurrentYear,
+                Population = ((Simulator) sender).CurrentPopuation,
+                ChildBorn = e.ChildBorn,
+                ChildDeath = e.ChildDeath
+            };
+
             await Dispatcher.InvokeAsync(() =>
             {
-                _items.Add(e);
+                _items.Add(data);
             });
 
+        }
+    }
+
+    public sealed class DataViewModel
+    {
+        public int Year { get; set; }
+
+        public int Population { get; set; }
+
+        public int ChildDeath { get; set; }
+
+        public int ChildBorn { get; set; }
+
+        public double ChildDeathPercents
+        {
+            get
+            {
+                if (ChildBorn == 0)
+                {
+                    return 0.0;
+                }
+
+                return (double) ChildDeath/ChildBorn;
+            }
         }
     }
 }

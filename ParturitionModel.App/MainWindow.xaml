@@ -21,13 +21,15 @@
                   ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type app:MainWindow}}, Path=Items, Mode=OneTime}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Year"
-                                    Binding="{Binding Path=CurrentYear}" />
+                                    Binding="{Binding Path=Year, Mode=OneTime}" />
+                <DataGridTextColumn Header="Population"
+                                    Binding="{Binding Path=Population, Mode=OneTime}" />
+                <DataGridTextColumn Header="Child Born (total)"
+                                    Binding="{Binding Path=ChildBorn, Mode=OneTime}" />
                 <DataGridTextColumn Header="Child Death"
-                                    Binding="{Binding Path=ChildDeath}" />
-                <DataGridTextColumn Header="Extra Death"
-                                    Binding="{Binding Path=ExtraDeath}" />
-                <DataGridTextColumn Header="Natural Death"
-                                    Binding="{Binding Path=NaturalDeathCount}" />
+                                    Binding="{Binding Path=ChildDeath, Mode=OneTime}" />
+                <DataGridTextColumn Header="Child Death, %"
+                                    Binding="{Binding Path=ChildDeathPercents, Mode=OneTime, StringFormat=P2}" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
