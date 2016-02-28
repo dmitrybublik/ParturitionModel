@@ -3,10 +3,32 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ParturitionModel.App"
+        xmlns:app="clr-namespace:ParturitionModel.App"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" 
+        Height="350"
+        Width="525">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         
+        <Button Grid.Row="0" Content="Run" Click="ButtonBase_OnClick" />
+
+        <DataGrid Grid.Row="1"
+                  AutoGenerateColumns="False"
+                  ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type app:MainWindow}}, Path=Items, Mode=OneTime}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Year"
+                                    Binding="{Binding Path=CurrentYear}" />
+                <DataGridTextColumn Header="Child Death"
+                                    Binding="{Binding Path=ChildDeath}" />
+                <DataGridTextColumn Header="Extra Death"
+                                    Binding="{Binding Path=ExtraDeath}" />
+                <DataGridTextColumn Header="Natural Death"
+                                    Binding="{Binding Path=NaturalDeathCount}" />
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>
